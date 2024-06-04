@@ -1,5 +1,5 @@
 import path from "path";
-import { agregarUsuario , mostrarUsuarios, eliminarUsuario} from "../models/queries.js";
+import { agregarUsuario , mostrarUsuarios, eliminarUsuario, editarUsuario} from "../models/queries.js";
 
 const __dirname = path.resolve();
 
@@ -22,5 +22,12 @@ export const mostrarUsers = async (req, res) => {
 export const eliminarUser = async (req, res) => {
     const { id } = req.query;
     const response = await eliminarUsuario(id);
+    res.send(response);
+}
+
+export const editarUser = async (req, res) => {
+    const { id } = req.query;
+    const { nombre, balance } = req.body;
+    const response = await editarUsuario(nombre, balance, id);
     res.send(response);
 }

@@ -1,5 +1,5 @@
 import express from "express";
-import { home, agregarUser, mostrarUsers, eliminarUser} from "../controllers/controllers.js";
+import { home, agregarUser, mostrarUsers, eliminarUser, editarUser} from "../controllers/controllers.js";
 
 const router = express.Router();
 
@@ -10,6 +10,8 @@ router.post("/usuario", agregarUser)
 router.get("/usuarios", mostrarUsers)
 
 router.delete("/usuario", eliminarUser)
+
+router.put("/usuario", editarUser)
 
 
 router.get("*", (req, res) => {

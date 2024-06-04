@@ -54,8 +54,26 @@ const eliminarUsuario = async (id) => {
     }
 }
 
+const editarUsuario = async (nombre, balance, id) => {
+    try {
+        const sql = {
+            text: "UPDATE usuarios SET nombre = $1, balance = $2 WHERE id = $3",
+            values: [nombre, balance, id]
+        }
+        const response = await pool.query(sql);
+        if (response.rowCount > 0) {
+            return response.rows[0];
+        } else {
+            return throwError("No se pudo editar el usuario");
+        }
+    } catch (error) {
+        console.error("Error al editar el usuario: ", error);
+        throw error;
+    }
+}
+
 const throwError = (message) => {
     throw new Error(message);
 }
 
-export { agregarUsuario, mostrarUsuarios, eliminarUsuario }
+export { agregarUsuario, mostrarUsuarios, eliminarUsuario, editarUsuario }
