@@ -1,5 +1,6 @@
 import path from "path";
-import { agregarUsuario , mostrarUsuarios, eliminarUsuario, editarUsuario} from "../models/queries.js";
+import { agregarUsuario , mostrarUsuarios, eliminarUsuario, editarUsuario, showTransferencias} from "../models/queries.js";
+import { addTransferencia } from "../models/queries.js";
 
 const __dirname = path.resolve();
 
@@ -29,5 +30,16 @@ export const editarUser = async (req, res) => {
     const { id } = req.query;
     const { nombre, balance } = req.body;
     const response = await editarUsuario(nombre, balance, id);
+    res.send(response);
+}
+
+export const transferir = async (req, res) => {
+    const { emisor, receptor, monto } = req.body;
+    const response = await addTransferencia(emisor, receptor, monto);
+    res.send(response);
+}
+
+export const mostrarTransf = async (req, res) => {
+    const response = await showTransferencias();
     res.send(response);
 }
